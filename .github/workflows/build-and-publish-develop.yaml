@@ -34,10 +34,6 @@ jobs:
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v22
         with:
-          active_profiles: |
-            [
-              "homelab"
-            ]
           profiles: >
             [{
               "id": "homelab",
@@ -67,4 +63,4 @@ jobs:
             }]
       - name: Maven Publish
         run: |
-          mvn -X -B deploy -P homelab
+          mvn -B deploy -P homelab
