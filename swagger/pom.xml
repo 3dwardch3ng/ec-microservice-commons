@@ -10,7 +10,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>cheng.edward</groupId>
+    <groupId>sydney.cheng</groupId>
     <artifactId>ec-microservice-commons-swagger</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 
