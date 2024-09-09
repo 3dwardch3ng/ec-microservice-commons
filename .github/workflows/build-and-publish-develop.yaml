@@ -66,4 +66,4 @@ jobs:
           cat /home/runner/.m2/settings.xml
       - name: Maven Publish
         run: |
-          mvn -B deploy -P homelab
+          mvn -X -B deploy -P homelab
