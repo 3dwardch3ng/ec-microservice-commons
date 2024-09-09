@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sydney.cheng</groupId>
+        <artifactId>ec-super-pom</artifactId>
+        <version>1.0.4</version>
+    </parent>
+
+    <artifactId>ec-microservice-commons</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Edward Cheng</name>
+            <email>edward@cheng.sydney</email>
+            <organization>cheng.sydney</organization>
+            <organizationUrl>https://3dwardch3ng.github.io/</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/3dwardch3ng/ec-microservice-commons.git</connection>
+        <developerConnection>scm:git:ssh://github.com:3dwardch3ng/ec-microservice-commons.git</developerConnection>
+        <url>https://github.com/3dwardch3ng/ec-microservice-commons/tree/main</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/3dwardch3ng/ec-microservice-commons/issues</url>
+    </issueManagement>
+
+    <modules>
+        <module>swagger</module>
+        <module>entity</module>
+        <module>configuration</module>
+        <module>database</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Dependency Versions -->
+        <spring-context-support.version>6.1.12</spring-context-support.version>
+        <springdoc-openapi-starter-common.version>2.6.0</springdoc-openapi-starter-common.version>
+        <atomikos.version>6.0.0</atomikos.version>
+        <caffeine.version>3.1.8</caffeine.version>
+        <!-- Sonar Properties -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.xmlReportPath>${project.basedir}/../target/site/jacoco/jacoco.xml</sonar.jacoco.xmlReportPath>
+        <sonar.language>java</sonar.language>
+        <sonar.coverage.exclusions>**/config/*</sonar.coverage.exclusions>
+        <sonar.organization>3dwardch3ng</sonar.organization>
+        <sonar.host.url>https://sonarqube.cluster.edward.sydney</sonar.host.url>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
