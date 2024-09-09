@@ -34,7 +34,11 @@ jobs:
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v22
         with:
-          profiles: |
+          active_profiles: |
+            [
+              "homelab"
+            ]
+          profiles: >
             [{
               "id": "homelab",
               "properties": {
@@ -42,7 +46,7 @@ jobs:
                 "altReleaseDeploymentRepository": "nexus-release::${env.RELEASE_DEPLOYMENT_REPOSITORY_URL}"
               }
             }]
-          repositories: |
+          repositories: >
             [{
               "id": "maven-public",
               "url": "${env.MAVEN_PUBLIC_REPOSITORY_URL}",
@@ -50,7 +54,7 @@ jobs:
                 "enabled": "true"
               }
             }]
-          servers: |
+          servers: >
             [{
               "id": "nexus-snapshot",
               "username": "${env.NEXUS_USERNAME}",
