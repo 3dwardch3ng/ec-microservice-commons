@@ -7,7 +7,7 @@
     <parent>
         <groupId>sydney.cheng</groupId>
         <artifactId>ec-super-pom</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.4</version>
     </parent>
 
     <artifactId>ec-microservice-commons</artifactId>
@@ -39,10 +39,21 @@
     </issueManagement>
 
     <modules>
+        <module>database</module>
         <module>swagger</module>
+        <module>configuration</module>
+        <module>entity</module>
     </modules>
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Dependency Versions -->
+        <spring-context-support.version>6.1.12</spring-context-support.version>
+        <springdoc-openapi-starter-common.version>2.6.0</springdoc-openapi-starter-common.version>
+        <atomikos.version>6.0.0</atomikos.version>
+        <caffeine.version>3.1.8</caffeine.version>
         <!-- Sonar Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
@@ -52,4 +63,21 @@
         <sonar.organization>3dwardch3ng</sonar.organization>
         <sonar.host.url>https://sonarqube.cluster.edward.sydney</sonar.host.url>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
