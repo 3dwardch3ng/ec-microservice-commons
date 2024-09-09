@@ -43,6 +43,7 @@
         <module>entity</module>
         <module>configuration</module>
         <module>database</module>
+        <module>exception</module>
     </modules>
 
     <properties>
