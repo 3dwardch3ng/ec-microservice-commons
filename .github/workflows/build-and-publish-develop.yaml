@@ -20,7 +20,7 @@ jobs:
       id-token: write
       contents: write
       packages: write
-    name: Build Java Package and Publish
+    name: Run Sonarqube Tests
     steps:
       - uses: actions/checkout@v4
         with:
@@ -80,6 +80,8 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ec-microservice-commons -Dsonar.projectName='ec-microservice-commons' -P homelab
   build-java:
     runs-on: ubuntu-latest
+    needs:
+      - sonarqube-test
     permissions:
       id-token: write
       contents: write
