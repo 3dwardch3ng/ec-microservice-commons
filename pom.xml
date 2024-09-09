@@ -39,10 +39,10 @@
     </issueManagement>
 
     <modules>
-        <module>database</module>
         <module>swagger</module>
-        <module>configuration</module>
         <module>entity</module>
+        <module>configuration</module>
+        <module>database</module>
     </modules>
 
     <properties>
@@ -63,6 +63,28 @@
         <sonar.organization>3dwardch3ng</sonar.organization>
         <sonar.host.url>https://sonarqube.cluster.edward.sydney</sonar.host.url>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
