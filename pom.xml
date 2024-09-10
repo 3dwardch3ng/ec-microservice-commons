@@ -7,7 +7,7 @@
     <parent>
         <groupId>sydney.cheng</groupId>
         <artifactId>ec-super-pom</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
     </parent>
 
     <artifactId>ec-microservice-commons</artifactId>
@@ -44,6 +44,7 @@
         <module>configuration</module>
         <module>database</module>
         <module>exception</module>
+        <module>security</module>
     </modules>
 
     <properties>
