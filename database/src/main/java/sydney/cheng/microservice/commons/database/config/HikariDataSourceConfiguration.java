@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static sydney.cheng.microservice.commons.database.constant.DatabaseBeanConstant.*;
 
-@Profile(value = {"database & hikari"})
+@Profile(value = {"database"})
 @Getter
 @Setter
 @ToString

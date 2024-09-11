@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import java.io.Serializable;
 import java.util.Properties;
 
-@Profile(value = {"database & hikari"})
+@Profile(value = {"database"})
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HikariDataSourceProperties extends HikariConfig implements Serializable {
