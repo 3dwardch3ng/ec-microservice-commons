@@ -40,14 +40,8 @@ public class HikariDataSourceConfiguration {
         return new HikariDataSource(this.replicaHikariDataSourceProperties);
     }
 
-    /**
-     * Configure data source routing for MRCENTRAL.
-     *
-     * @return data source
-     * @see RoutingDataSource
-     */
     @Bean(name = {"dataSource", DS_BEAN_NAME})
-    public DataSource centralDataSource() {
+    public DataSource databaseDataSource() {
         RoutingDataSource rds = new RoutingDataSource();
         rds.setTargetDataSources(Map
                 .of(DbType.PRIMARY, this.primaryDataSource(), DbType.REPLICA, this.replicaDataSource()));

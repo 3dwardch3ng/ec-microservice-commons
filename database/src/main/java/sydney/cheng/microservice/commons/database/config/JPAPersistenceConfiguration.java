@@ -25,8 +25,8 @@ import static sydney.cheng.microservice.commons.database.constant.DatabaseBeanCo
 @Configuration
 @EnableJpaRepositories(
         basePackages = "sydney.cheng.**.repository",
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager"
+        entityManagerFactoryRef = "ecEntityManagerFactory",
+        transactionManagerRef = "ecTransactionManager"
 )
 public class JPAPersistenceConfiguration {
     private final ConfigurableListableBeanFactory beanFactory;
@@ -42,7 +42,7 @@ public class JPAPersistenceConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier(DS_BEAN_NAME) DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean ecEntityManagerFactory(@Qualifier(DS_BEAN_NAME) DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
         em.setPersistenceUnitName("persistence-unit");
@@ -62,7 +62,7 @@ public class JPAPersistenceConfiguration {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
+    public JpaTransactionManager ecTransactionManager(@Qualifier("ecEntityManagerFactory") EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
