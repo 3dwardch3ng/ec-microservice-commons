@@ -8,5 +8,5 @@ import java.io.Serializable;
 @Profile("database")
 @Data
 public class DatabaseNodeProperties implements Serializable {
-    private HikariDataSourceProperties hikari;
+    DataSourceProperties datasource;
 }

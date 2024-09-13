@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Profile;
 import java.util.Properties;
 
 @Profile(value = {"database"})
-@ConfigurationProperties("app.database.primary.hikari")
+@ConfigurationProperties("app.database.primary.datasource.hikari")
 public class PrimaryHikariDataSourceProperties extends HikariDataSourceProperties {
     public PrimaryHikariDataSourceProperties() {
         super();
