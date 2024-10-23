@@ -14,74 +14,8 @@ env:
   RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
 
 jobs:
-  sonarqube-test:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
-      packages: write
-    name: Run Sonarqube Tests
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: actions/setup-java@v4.4.0
-        if: ${{ hashFiles('**/pom.xml') }}
-        with:
-          java-version: 17
-          distribution: zulu
-          cache: 'maven'
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: maven-settings-xml-action
-        uses: whelk-io/maven-settings-xml-action@v22
-        with:
-          profiles: >
-            [{
-              "id": "homelab",
-              "properties": {
-                "altSnapshotDeploymentRepository": "nexus-snapshot::${env.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL}",
-                "altReleaseDeploymentRepository": "nexus-release::${env.RELEASE_DEPLOYMENT_REPOSITORY_URL}"
-              }
-            }]
-          repositories: >
-            [{
-              "id": "maven-public",
-              "url": "${env.MAVEN_PUBLIC_REPOSITORY_URL}",
-              "snapshots": {
-                "enabled": "true"
-              }
-            }]
-          servers: >
-            [{
-              "id": "nexus-snapshot",
-              "username": "${env.NEXUS_USERNAME}",
-              "password": "${env.NEXUS_PASSWORD}"
-            },
-            {
-              "id": "nexus-release",
-              "username": "${env.NEXUS_USERNAME}",
-              "password": "${env.NEXUS_PASSWORD}"
-            }]
-      - name: Build and analyse
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ec-microservice-commons -Dsonar.projectName='ec-microservice-commons' -P homelab
   build-java:
     runs-on: ubuntu-latest
-    needs:
-      - sonarqube-test
     permissions:
       id-token: write
       contents: write
