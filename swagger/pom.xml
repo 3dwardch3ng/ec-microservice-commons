@@ -7,12 +7,12 @@
     <parent>
         <groupId>sydney.cheng</groupId>
         <artifactId>ec-microservice-commons</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>sydney.cheng</groupId>
     <artifactId>ec-microservice-commons-swagger</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
