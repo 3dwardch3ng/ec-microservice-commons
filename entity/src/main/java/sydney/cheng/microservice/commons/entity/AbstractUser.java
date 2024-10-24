@@ -1,4 +1,4 @@
-package sydney.cheng.entity;
+package sydney.cheng.microservice.commons.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

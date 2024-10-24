@@ -1,36 +1,39 @@
-name: RELEASE - Build and Publish Maven Artifacts
+name: Build
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - '!main'
+      - '!develop'
 
-env:
-  NEXUS_USERNAME: 'edward'
-  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-  MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
-  SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-  RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
 
 jobs:
-  build-java:
+  build:
+    name: Build and analyze
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
-      packages: write
-    name: Build Java Package and Publish
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - uses: actions/setup-java@v4.4.0
         if: ${{ hashFiles('**/pom.xml') }}
         with:
           java-version: 17
           distribution: zulu
           cache: 'maven'
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v22
         with:
@@ -61,20 +64,8 @@ jobs:
               "username": "${env.NEXUS_USERNAME}",
               "password": "${env.NEXUS_PASSWORD}"
             }]
-      - name: Config Git
-        run: |
-          git config --global user.email "edward@cheng.sydney"
-          git config --global user.name "3dwardch3ng"
-          git config --global core.autocrlf input
-      - name: Start release
-        run: |
-          mvn gitflow:release-start -B -DpushRemote=true -DallowSnapshots=true -P homelab
-      - name: Maven Publish
-        run: |
-          mvn -B deploy -P homelab
-      - name: Finish release
+      - name: Build and analyze
         env:
-          GITHUB_ACTOR: 3dwardch3ng
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          mvn gitflow:release-finish -B -DpushRemote=true -DallowSnapshots=true -P homelab
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ec-microservice-commons -Dsonar.projectName='ec-microservice-commons'

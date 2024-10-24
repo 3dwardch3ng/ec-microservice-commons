@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Properties;
 
-@Profile(value = {"database & hikari"})
+@Profile(value = {"database"})
 @ConfigurationProperties("app.database.replica.datasource.hikari")
 public class ReplicaHikariDataSourceProperties extends HikariDataSourceProperties {
     public ReplicaHikariDataSourceProperties() {

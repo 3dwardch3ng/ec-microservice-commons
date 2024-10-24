@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class DatabaseProperties {
     EntityManagerProperties entityManager;
     JpaProperties jpa;
-    DatabaseNodeProperties master;
+    DatabaseNodeProperties primary;
     DatabaseNodeProperties replica;
 
     @Data
