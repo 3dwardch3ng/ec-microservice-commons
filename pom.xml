@@ -53,7 +53,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dependency Versions -->
         <spring-context-support.version>6.1.12</spring-context-support.version>
-        <springdoc-openapi-starter-common.version>2.6.0</springdoc-openapi-starter-common.version>
+        <springdoc-openapi-starter-common.version>3.1.1</springdoc-openapi-starter-common.version>
         <atomikos.version>6.0.0</atomikos.version>
         <caffeine.version>3.1.8</caffeine.version>
         <!-- Sonar Properties -->
